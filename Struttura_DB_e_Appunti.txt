@@ -1,0 +1,23 @@
+utente(id_utente, ruolo, nome, cognome, nickname, email, password)
+
+follows(id_follower, id_followed)
+
+post(id_post, id_utente_proprietario_post, titolo, ingredienti, descrizione(ricetta/procedura di preparazione), id_valutazione)
+
+valutazione_post(id_utente_cheVota, id_post, voto)
+
+commento_post(id_utente_cheCommenta, id_ post, commento)
+
+Utente:
+    - Deve poter cercare un post_ricetta
+    - Deve poter seguire altri utenti
+    - Deve poter smettere di seguire altri utenti
+    - Deve poter valutare i post_ricetta
+    - Deve poter commentare i post_ricetta
+    - (Se c'è tempo)Deve poter segalare i post_ricetta inappropriati
+
+Utente Admin:
+    
+
+
+
