@@ -8,7 +8,7 @@ public class Post {
 	private String titolo;
 	private String descrizione;
 	private List<String> ingredienti;
-	private List<Integer> valutazioni;
+	private List<Valutazione> valutazioni;
 	private int valutazioneMedia;
 	private List<Commento> commenti;
 	
@@ -55,11 +55,11 @@ public class Post {
 		this.ingredienti = ingredienti;
 	}
 
-	public List<Integer> getValutazioni() {
+	public List<Valutazione> getValutazioni() {
 		return valutazioni;
 	}
 
-	public void setValutazioni(List<Integer> valutazioni) {
+	public void setValutazioni(List<Valutazione> valutazioni) {
 		this.valutazioni = valutazioni;
 	}
 

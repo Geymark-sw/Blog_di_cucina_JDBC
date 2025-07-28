@@ -18,9 +18,6 @@ public class Utente {
 	private List<Utente> seguiti;
 	
 	
-	
-	
-	
 	public Utente(String ruolo, String nome, String cognome, String nickname, String email, String password) {
 		super();
 		setRuolo(ruolo);
@@ -60,7 +57,9 @@ public class Utente {
 		DaoUtente dao = new DaoUtente();
 		//settare id_ultimo utente + 1
 		//poi puoi aggiungere su db
+		this.idUtente = dao.ritornaUltimoAggiunto().getIdUtente() +  1;
 	}
+	
 
 	public Ruolo getRuolo() {
 		return ruolo;

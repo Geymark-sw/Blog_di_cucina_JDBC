@@ -22,14 +22,7 @@ public class DaoUtente {
 		
 		try(Connection conn = DBConnection.getConnection();
 		PreparedStatement stmt = conn.prepareStatement(query);){
-			stmt.setString(1, u.getRuolo().toString());
-			stmt.setString(2, u.getNome());
-			stmt.setString(3, u.getCognome());
-			stmt.setString(4, u.getNickname());
-			stmt.setString(5, u.getEmail());
-			stmt.setString(6, u.getPassword());
-			stmt.executeUpdate();
-			return true;
+			if(cercaPerNicknameOrEmail(stmt.getSt))
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return false;
