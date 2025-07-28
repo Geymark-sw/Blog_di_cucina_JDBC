@@ -2,10 +2,12 @@ package models;
 
 import java.util.List;
 
+import dao.DaoUtente;
 import utils.Ruolo;
 
 public class Utente {
 	
+	private long idUtente;
 	private Ruolo ruolo;
 	private String nome;
 	private String cognome;
@@ -22,6 +24,7 @@ public class Utente {
 	public Utente(String ruolo, String nome, String cognome, String nickname, String email, String password) {
 		super();
 		setRuolo(ruolo);
+		setIdUtente();
 		this.nome = nome;
 		this.cognome = cognome;
 		this.nickname = nickname;
@@ -33,6 +36,32 @@ public class Utente {
 		
 	}
 	
+	public Utente(long idUtente, String ruolo, String nome, String cognome, String nickname, String email, String password) {
+		super();
+		this.idUtente = idUtente;
+		setRuolo(ruolo);
+		this.nome = nome;
+		this.cognome = cognome;
+		this.nickname = nickname;
+		this.email = email;
+		this.password = password;
+	}
+	
+	
+	public long getIdUtente() {
+		return idUtente;
+	}
+
+	public void setIdUtente(long id) {
+		this.idUtente = id;
+	}
+	
+	public void setIdUtente() {
+		DaoUtente dao = new DaoUtente();
+		//settare id_ultimo utente + 1
+		//poi puoi aggiungere su db
+	}
+
 	public Ruolo getRuolo() {
 		return ruolo;
 	}
