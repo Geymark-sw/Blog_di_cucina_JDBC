@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoUtente;
@@ -14,8 +15,9 @@ public class Utente {
 	private String nickname;
 	private String email;
 	private String password;
-	private List<Utente> followers;
-	private List<Utente> seguiti;
+	private List<Utente> followers = new ArrayList<Utente>();
+	private List<Utente> seguiti = new ArrayList<Utente>();
+	private List<Post> posts = new ArrayList<Post>();
 	
 	
 	public Utente(String ruolo, String nome, String cognome, String nickname, String email, String password) {
@@ -45,6 +47,22 @@ public class Utente {
 	}
 	
 	
+	
+	public Utente(long idUtente, Ruolo ruolo, String nome, String cognome, String nickname, String email,
+			String password, List<Utente> followers, List<Utente> seguiti, List<Post> posts) {
+		super();
+		this.idUtente = idUtente;
+		this.ruolo = ruolo;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.nickname = nickname;
+		this.email = email;
+		this.password = password;
+		this.followers = followers;
+		this.seguiti = seguiti;
+		this.posts = posts;
+	}
+
 	public long getIdUtente() {
 		return idUtente;
 	}
@@ -126,6 +144,16 @@ public class Utente {
 
 	public void setSeguiti(List<Utente> seguiti) {
 		this.seguiti = seguiti;
+	}
+	
+	
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override

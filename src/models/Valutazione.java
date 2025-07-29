@@ -5,7 +5,7 @@ public class Valutazione {
 	private Utente proprietario;
 	private int valutazione;
 	
-	private Valutazione(Utente proprietario, int valutazione) {
+	public Valutazione(Utente proprietario, int valutazione) {
 		this.proprietario = proprietario;
 		this.valutazione = valutazione;
 	}
