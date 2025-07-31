@@ -20,6 +20,7 @@ public class Post {
 		
 	}
 	
+	//Costruttore quando si crea un nuovo post
 	public Post(Utente proprietario, String titolo, String descrizione, List<String> ingredienti) {
 		setIdPost();
 		this.proprietario = proprietario;
@@ -31,7 +32,7 @@ public class Post {
 	
 	
 	
-
+	//Costruttore completo senza ID
 	public Post(Utente proprietario, String titolo, String descrizione, List<String> ingredienti,
 			List<Valutazione> valutazioni, int valutazioneMedia, List<Commento> commenti) {
 		super();
@@ -45,6 +46,33 @@ public class Post {
 		this.commenti = commenti;
 	}
 	
+	
+	
+	//Costruttore completo con ID
+	public Post(Integer idPost, Utente proprietario, String titolo, String descrizione, List<String> ingredienti,
+			List<Valutazione> valutazioni, int valutazioneMedia, List<Commento> commenti) {
+		super();
+		this.idPost = idPost;
+		this.proprietario = proprietario;
+		this.titolo = titolo;
+		this.descrizione = descrizione;
+		this.ingredienti = ingredienti;
+		this.valutazioni = valutazioni;
+		this.valutazioneMedia = valutazioneMedia;
+		this.commenti = commenti;
+	}
+	
+		
+	
+	
+
+	public Post(Integer idPost, Utente proprietario, String titolo, String descrizione) {
+		super();
+		this.idPost = idPost;
+		this.proprietario = proprietario;
+		this.titolo = titolo;
+		this.descrizione = descrizione;
+	}
 
 	public Integer getIdPost() {
 		return idPost;

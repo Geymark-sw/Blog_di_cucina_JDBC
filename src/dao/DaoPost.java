@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Post;
@@ -28,7 +29,7 @@ public class DaoPost {
 		PreparedStatement stmt = conn.prepareStatement(query);){
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-				return cerca(rs.getString("id_post"));
+				return cerca(rs.getInt("id_post"));
 			}
 			return null;
 		}catch(SQLException e) {
@@ -37,7 +38,7 @@ public class DaoPost {
 		}
 	}
 	
-	public Post cerca(Integer idPost) {
+	public Post cercaPerId(Integer idPost) {
 		String query = "SELECT *"
 					+ "FROM post p "
 					+ "WHERE p.id_post = ?;";
@@ -62,8 +63,71 @@ public class DaoPost {
 		}
 	}
 
-	public boolean inserisci(Integer id_utente, Post post) {
-		String query = "INSERT INTO post()";
+	public boolean inserisci(Integer idUtente, Post post) {
+		String query = "INSERT INTO post(id_utente_proprietario_post, titolo, descrizione)"
+					+ "VALUES (?, ?, ?)";
+		try(Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);){
+			stmt.setInt(1, idUtente);
+			stmt.setString(2, post.getTitolo());
+			stmt.setString(3, post.getDescrizione());
+			stmt.executeUpdate();
+			if(cerca(post.getIdPost()) != null) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
+	
+	public boolean cancella(Integer idPost) {
+		String query = "DELETE * "
+					+ "FROM post p "
+					+ "WHERE p.id_post = ?;";
+		try(Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);){
+			stmt.setInt(1, idPost);
+			stmt.executeUpdate();
+			if(cerca(idPost) == null) {
+				return true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public List<Post> cercaTutti(){
+		List<Post> posts = new ArrayList<Post>();
+		String query = "SELECT * "
+					+ "FROM post;";
+		try(Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);){
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				Post p = new Post(
+						rs.getInt("id_post"),
+						daoUtente.cercaPerNicknameOrEmailOrId(rs.getString("id_utente_propritario_post")),
+						rs.getString("titolo"),
+						rs.getString("descrizione")
+						);
+				p.setIngredienti(FunzioniUtils.recuperaIngredienti(p.getIdPost()));
+				p.setValutazioni(FunzioniUtils.recuperaValutazioni(p.getIdPost()));
+				p.setValutazioneMedia(p.getIdPost());
+				p.setCommenti(FunzioniUtils.recuperaCommenti(p.getIdPost()));
+				
+				posts.add(p);
+			}
+			return posts;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	//Cerca per titolo
+	//Cerca per descrizione
 
 }
