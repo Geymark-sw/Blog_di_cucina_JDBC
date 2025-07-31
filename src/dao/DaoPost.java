@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Post;
-import models.Utente;
 import utils.DBConnection;
-import utils.FunzioniUtils;
+import utils.FunzioniUtilsPost;
+
 
 public class DaoPost {
 	
@@ -49,10 +49,10 @@ public class DaoPost {
 				return new Post(daoUtente.cercaPerNicknameOrEmailOrId(rs.getString("id_utente")), //recupero il proprietario del post
 								rs.getString("titolo"),
 								rs.getString("descrizione"),
-								FunzioniUtils.recuperaIngredienti(idPost),
-								FunzioniUtils.recuperaValutazioni(idPost),
-								FunzioniUtils.recuperaValutazioneMedia(idPost),
-								FunzioniUtils.recuperaCommenti(idPost)
+								FunzioniUtilsPost.recuperaIngredienti(idPost),
+								FunzioniUtilsPost.recuperaValutazioni(idPost),
+								FunzioniUtilsPost.recuperaValutazioneMedia(idPost),
+								FunzioniUtilsPost.recuperaCommenti(idPost)
 								);
 				
 			}
@@ -112,10 +112,10 @@ public class DaoPost {
 						rs.getString("titolo"),
 						rs.getString("descrizione")
 						);
-				p.setIngredienti(FunzioniUtils.recuperaIngredienti(p.getIdPost()));
-				p.setValutazioni(FunzioniUtils.recuperaValutazioni(p.getIdPost()));
+				p.setIngredienti(FunzioniUtilsPost.recuperaIngredienti(p.getIdPost()));
+				p.setValutazioni(FunzioniUtilsPost.recuperaValutazioni(p.getIdPost()));
 				p.setValutazioneMedia(p.getIdPost());
-				p.setCommenti(FunzioniUtils.recuperaCommenti(p.getIdPost()));
+				p.setCommenti(FunzioniUtilsPost.recuperaCommenti(p.getIdPost()));
 				
 				posts.add(p);
 			}
@@ -130,8 +130,18 @@ public class DaoPost {
 	//Cerca per titolo
 	//Cerca per Ingrediente
 	
-	public List<Post> cercaPerTitolo(String input){
+	public List<Post> cercaPerTitolo(String titolo){
 		// richiamare da funzioniUtils
+		return FunzioniUtilsPost.trovaPostTitoliSimili(titolo, cercaTutti(), 0.5);
 	}
-
+	
+	public List<Post> cercaPerIngredienti(List<String> ingredienti){
+		return FunzioniUtilsPost.trovaPostIngredientiSimili(ingredienti, this.cercaTutti(), 0.5);
+	}
+	
+	public List<Post> cercaPostPerParolaChiaveInDescrizione(String parolaChiave){
+		return FunzioniUtilsPost.trovaPostPerParolaChiaveInDescrizione(parolaChiave);
+	}
+	
+	
 }

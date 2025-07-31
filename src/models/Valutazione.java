@@ -1,15 +1,54 @@
 package models;
 
+import dao.DaoUtente;
+import dao.DaoValutazione;
+
 public class Valutazione {
 	
+	private Long idValutazione;
 	private Utente proprietario;
 	private int valutazione;
 	
+	//Costruttore senza id auto assegnato interagendo col DB
 	public Valutazione(Utente proprietario, int valutazione) {
+		setIdValutazione();
 		this.proprietario = proprietario;
 		this.valutazione = valutazione;
 	}
 	
+	
+	
+	//Costruttore con id che potrebbe servire quando si ricerca sul DB per ricostruire l'oggetto
+	public Valutazione(Long idValutazione, Utente proprietario, int valutazione) {
+		super();
+		this.idValutazione = idValutazione;
+		this.proprietario = proprietario;
+		this.valutazione = valutazione;
+	}
+
+
+
+
+
+	public Long getIdValutazione() {
+		return idValutazione;
+	}
+
+
+
+	public void setIdValutazione(Long idValutazione) {
+		this.idValutazione = idValutazione;
+	}
+	
+	public void setIdValutazione() {
+		DaoValutazione dao = new DaoValutazione();
+		//settare id_ultimo utente + 1
+		//poi puoi aggiungere su db
+		this.idValutazione = dao.ritornaUltimoAggiunto().getIdValutazone() +  1;
+	}
+
+
+
 	public Utente getProprietario() {
 		return this.proprietario;
 	}

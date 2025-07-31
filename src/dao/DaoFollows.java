@@ -49,8 +49,22 @@ public class DaoFollows {
 		return false;
 	}
 	
-	public static boolean rimuovi() {
-		
+	public static boolean rimuoviFollow(long idUtenteFollower, long idUtenteFollowed) {
+		String query = "DELETE * "
+					+ "FROM follows f "
+					+ "WHERE f.id_follower = ? AND f.id_followed = ?;";
+		try(Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);){
+			stmt.setLong(1, idUtenteFollower);
+			stmt.setLong(2, idUtenteFollowed);
+			stmt.executeUpdate();
+			if(!cerca(idUtenteFollower, idUtenteFollowed)) { //Se non trova la relazione di follow
+				return true; 								//Allora rimozione effettuata con successo
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;	
 	}
 
 }

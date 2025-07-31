@@ -14,37 +14,12 @@ import dao.DaoPost;
 import dao.DaoUtente;
 import models.Commento;
 import models.Post;
-import models.Utente;
 import models.Valutazione;
 
-public class FunzioniUtils {
+public class FunzioniUtilsPost {
+
 	private static DaoUtente daoUtente = new DaoUtente(); // Per richiamare eventualmente alcune funzioni del DAO
 	private static DaoPost daoPost = new DaoPost();
-
-	public static boolean emailExists(String email) {
-		String query = "SELECT COUNT(*) FROM utente WHERE email = ?;";
-		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
-			stmt.setString(1, email);
-			ResultSet rs = stmt.executeQuery();
-			return rs.getInt(1) > 0; // Seleziona la prima colonna(il contenuto del count) se quest'ultimo ha un
-										// valore superiore a 0 voul dire che esiste
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public static boolean nicknameExists(String nickname) {
-		String query = "SELECT COUNT(*) FROM utente WHERE nickname = ?;";
-		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query);) {
-			stmt.setString(1, nickname);
-			ResultSet rs = stmt.executeQuery();
-			return rs.getInt(1) > 0;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 
 	public static List<String> recuperaIngredienti(Integer idPost) {
 		List<String> ingredienti = new ArrayList<String>();
@@ -120,42 +95,7 @@ public class FunzioniUtils {
 		}
 	}
 
-	public static List<Utente> accorpaUtentiDaRicerca(List<Utente> utentiNomiSimili, List<Utente> utentiCognomiSimili,
-			List<Utente> utentiNicknameSimili) {
-		List<Utente> utentiAccorpati = new ArrayList<Utente>();
-		List<String> nicknames = new ArrayList<String>();
-
-		// Aggiungo tutti gli utenti con nomi simili
-		for (Utente u : utentiNomiSimili) {
-			if (!nicknames.contains(u.getNickname())) {
-				nicknames.add(u.getNickname());
-				utentiAccorpati.add(u);
-			}
-		}
-
-		// Aggiungo tutti gli utenti con cognomi simili ma escludendo quelli con
-		// nickname uguale
-		for (Utente u : utentiCognomiSimili) {
-			if (!nicknames.contains(u.getNickname())) {
-				nicknames.add(u.getNickname());
-				utentiAccorpati.add(u);
-			}
-		}
-
-		// Aggiungo tutti gli utenti con cognomi simili ma escludendo quelli con
-		// nickname uguale
-		for (Utente u : utentiNicknameSimili) {
-			if (!nicknames.contains(u.getNickname())) {
-				nicknames.add(u.getNickname());
-				utentiAccorpati.add(u);
-			}
-		}
-
-		return utentiAccorpati;
-
-	}
-
-	// Da riga 168 a riga 234 sono funzioni per ricercare un nickname
+	// Da riga 94 a riga 122 sono funzioni per somiglianza tra stringhe
 	/////////////////// Calcola la distanza di Levenshtein tra due
 	// stringhe///////////////////
 	public static int levenshtein(String s1, String s2) {
@@ -184,57 +124,7 @@ public class FunzioniUtils {
 			return 1.0;
 		return 1.0 - ((double) levenshtein(s1.toLowerCase(), s2.toLowerCase()) / maxLen);
 	}
-
-	// Cerca i Nomi simili nella lista
-	public static List<Utente> trovaNomiSimili(String input, List<Utente> listaUtenti, double soglia) {
-		List<Utente> risultati = new ArrayList<>();
-		for (Utente utente : listaUtenti) {
-			double sim = similarita(input, utente.getNome());
-			if (sim >= soglia) {
-				risultati.add(utente);
-			}
-		}
-		return risultati;
-	}
-
-	// Cerca i Cognomi simili nella lista
-	public static List<Utente> trovaCognomiSimili(String input, List<Utente> listaUtenti, double soglia) {
-		List<Utente> risultati = new ArrayList<>();
-		for (Utente utente : listaUtenti) {
-			double sim = similarita(input, utente.getCognome());
-			if (sim >= soglia) {
-				risultati.add(utente);
-			}
-		}
-		return risultati;
-	}
-
-	// Cerca i nickname simili nella lista
-	public static List<Utente> trovaNicknameSimili(String input, List<Utente> listaUtenti, double soglia) {
-		List<Utente> risultati = new ArrayList<>();
-		for (Utente utente : listaUtenti) {
-			double sim = similarita(input, utente.getNickname());
-			if (sim >= soglia) {
-				risultati.add(utente);
-			}
-		}
-		return risultati;
-	}
 	
-	
-	
-	public static List<Utente> cercaUtentiSimili(String input){
-		List<Utente> utentiNomiSimili = FunzioniUtils.trovaNomiSimili(input, daoUtente.selezionaTutti(), 0.65); //ricerca per nome
-		List<Utente> utentiCognomiSimili = FunzioniUtils.trovaCognomiSimili(input, daoUtente.selezionaTutti(), 0.65); //ricerca per cognome con tolleranza del 65%
-		List<Utente> utentiNicknamesSimili = FunzioniUtils.trovaNicknameSimili(input, daoUtente.selezionaTutti(), 0.65); //ricerca per cognome
-		
-		List<Utente> utentiAccorpati = FunzioniUtils.accorpaUtentiDaRicerca(utentiNomiSimili, utentiCognomiSimili, utentiNicknamesSimili);
-	
-		return utentiAccorpati;
-	}
-	
-	
-
 	public static List<Post> trovaPostTitoliSimili(String input, List<Post> listaPost, double soglia) {
 		List<Post> risultati = new ArrayList<>();
 		for (Post post : listaPost) {
@@ -322,5 +212,5 @@ public class FunzioniUtils {
 
         return testoNorm.contains(sottoNorm);
     }
-    
+
 }

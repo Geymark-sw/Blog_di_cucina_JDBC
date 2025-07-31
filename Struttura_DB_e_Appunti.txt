@@ -13,12 +13,14 @@ valutazione(id_valutazione, id_utente_cheVota, id_post, voto)
 commento(id_commento, id_ post, id_utente_cheCommenta, commento)
 
 Utente:
-    - Deve potersi registrare al blog
-    - Deve poter eliminare il suo account
-    - Deve poter caricare un post_ricetta
-    - Deve poter cercare un post_ricetta
-    - Deve poter seguire altri utenti
-    - Deve poter smettere di seguire altri utenti
+    - Deve potersi registrare al blog $
+    - Deve poter eliminare il suo account $
+    - Deve poter caricare un post_ricetta $
+    - Deve poter eliminare un suo post post_ricetta $
+    - Deve poter cercare un post_ricetta (per titolo, per ingredienti/e, parola chiave in descrizione) $
+    - Deve poter cercare altri Utenti
+    - Deve poter seguire altri utenti $
+    - Deve poter smettere di seguire altri utenti $
     - Deve poter valutare i post_ricetta
     - Deve poter rimuovere le sue valutazioni fatte ai post
     - Deve poter commentare i post_ricetta

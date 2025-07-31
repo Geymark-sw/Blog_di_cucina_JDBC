@@ -9,7 +9,7 @@ import java.util.List;
 
 import models.Utente;
 import utils.DBConnection;
-import utils.FunzioniUtils;
+import utils.FunzioniUtilsUtente;
 
 public class DaoUtente {
 	
@@ -21,10 +21,10 @@ public class DaoUtente {
 		String query = "INSERT INTO utente(ruolo, nome, cognome, nickname, email, password) "
 					+ "VALUES(?, ?, ?, ?, ?, ?);";
 		
-		if(FunzioniUtils.emailExists(u.getEmail())) {
+		if(FunzioniUtilsUtente.emailExists(u.getEmail())) {
 			System.out.println("Impossibile effettuare la registrazione, l'email e' gia' esistente");
 			return false;
-		}else if(FunzioniUtils.nicknameExists(u.getNickname())){
+		}else if(FunzioniUtilsUtente.nicknameExists(u.getNickname())){
 			System.out.println("Impossibile effettuare la registrazione, il nickname e' gia' esistente");
 			return false;
 		}
