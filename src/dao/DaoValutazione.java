@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import models.Post;
 import models.Valutazione;
@@ -43,7 +45,10 @@ public class DaoValutazione {
 		try(Connection conn = DBConnection.getConnection();
 		PreparedStatement stmt = conn.prepareStatement(query);){
 			stmt.setLong(1, idValutazione);
-			ResultSet rs = stmt.executeUpdate
+			stmt.executeUpdate();
+			if(cerca(idValutazione) == null) {
+				return true;
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,6 +86,25 @@ public class DaoValutazione {
 										daoUtente.cercaPerNicknameOrEmailOrId(rs.getString("id_utente")),
 										rs.getInt("voto"));
 			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<Valutazione> cercaTutti(){
+		List<Valutazione> valutazioni = new ArrayList<Valutazione>();
+		String query = "SELECT *"
+					+ "FROM valutazione";
+		try(Connection conn = DBConnection.getConnection();
+		PreparedStatement stmt = conn.prepareStatement(query);){
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				valutazioni.add(new Valutazione(rs.getLong("id_valutazione"),
+												daoUtente.cercaPerNicknameOrEmailOrId(rs.getString("id_utente")),
+												rs.getInt("voto")));
+			}
+			return valutazioni;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

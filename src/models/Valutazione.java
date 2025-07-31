@@ -1,6 +1,6 @@
 package models;
 
-import dao.DaoUtente;
+
 import dao.DaoValutazione;
 
 public class Valutazione {
@@ -44,7 +44,7 @@ public class Valutazione {
 		DaoValutazione dao = new DaoValutazione();
 		//settare id_ultimo utente + 1
 		//poi puoi aggiungere su db
-		this.idValutazione = dao.ritornaUltimoAggiunto().getIdValutazone() +  1;
+		this.idValutazione = dao.ritornaUltimoAggiunto().getIdValutazione() +  1;
 	}
 
 
