@@ -29,7 +29,7 @@ public class DaoPost {
 		PreparedStatement stmt = conn.prepareStatement(query);){
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-				return cerca(rs.getInt("id_post"));
+				return cercaPerId(rs.getInt("id_post"));
 			}
 			return null;
 		}catch(SQLException e) {
@@ -72,7 +72,7 @@ public class DaoPost {
 			stmt.setString(2, post.getTitolo());
 			stmt.setString(3, post.getDescrizione());
 			stmt.executeUpdate();
-			if(cerca(post.getIdPost()) != null) {
+			if(cercaPerId(post.getIdPost()) != null) {
 				return true;
 			}
 		}catch(SQLException e) {
@@ -89,7 +89,7 @@ public class DaoPost {
 		PreparedStatement stmt = conn.prepareStatement(query);){
 			stmt.setInt(1, idPost);
 			stmt.executeUpdate();
-			if(cerca(idPost) == null) {
+			if(cercaPerId(idPost) == null) {
 				return true;
 			}
 		}catch(SQLException e) {
@@ -128,6 +128,10 @@ public class DaoPost {
 	}
 	
 	//Cerca per titolo
-	//Cerca per descrizione
+	//Cerca per Ingrediente
+	
+	public List<Post> cercaPerTitolo(String input){
+		// richiamare da funzioniUtils
+	}
 
 }
