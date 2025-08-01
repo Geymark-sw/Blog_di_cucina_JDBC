@@ -24,12 +24,12 @@ Utente:
     - Deve poter valutare i post_ricetta $
     - Deve poter rimuovere le sue valutazioni fatte ai post $
     - Deve poter commentare i post_ricetta $
-    - Deve poter rimuovere i commenti fatti ai post ricetta
+    - Deve poter rimuovere i commenti fatti ai post ricetta $
     - (Se c'è tempo)Deve poter segalare i post_ricetta inappropriati
 
 Utente Moderatore:
-    - Deve poter bloccare utenti normali per x motivi
-    - Deve poter sbloccare gli utenti bloccati
+    - Deve poter bloccare utenti normali per x motivi $
+    - Deve poter sbloccare gli utenti bloccati $
     - Deve poter *modificare* i post degli altri utenti normali
     - Deve poter fare tutto quello che fa un utente normale
 
