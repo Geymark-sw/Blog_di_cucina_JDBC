@@ -36,7 +36,7 @@ public class Commento {
 		this.idCommento = idCommento;
 	}
 	
-	public void setIdcommento() {
+	public void setIdCommento() {
 		DaoCommento daoCommento = new DaoCommento();
 		
 		this.idCommento = daoCommento.cercaUltimoAggiunto().getIdCommento() + 1;

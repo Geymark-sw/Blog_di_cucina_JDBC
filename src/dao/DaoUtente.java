@@ -18,8 +18,8 @@ public class DaoUtente {
 	}
 	
 	public boolean inserisci(Utente u) {
-		String query = "INSERT INTO utente(ruolo, nome, cognome, nickname, email, password) "
-					+ "VALUES(?, ?, ?, ?, ?, ?);";
+		String query = "INSERT INTO utente(ruolo, nome, cognome, nickname, email, password, status) "
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?);";
 		
 		if(FunzioniUtilsUtente.emailExists(u.getEmail())) {
 			System.out.println("Impossibile effettuare la registrazione, l'email e' gia' esistente");
@@ -36,6 +36,7 @@ public class DaoUtente {
 			stmt.setString(4, u.getNickname());
 			stmt.setString(5, u.getEmail().toLowerCase());
 			stmt.setString(6,u.getPassword());
+			stmt.setBoolean(7, true);
 			stmt.executeUpdate();
 			System.out.println("Registrazione effettuata con successo!\nBenvenuto " + u.getNickname());
 			return true;
@@ -79,7 +80,8 @@ public class DaoUtente {
 								rs.getString("cognome"), 
 								rs.getString("nickname"),
 								rs.getString("email"),
-								rs.getString("password"));
+								rs.getString("password"),
+								rs.getBoolean("status"));
 			}
 			return null;
 		}catch(SQLException e) {

@@ -153,5 +153,14 @@ public class FunzioniUtilsUtente {
 
 		return utentiAccorpati;
 	}
+	
+	public static void stampaAnagraficaUtente(Utente u) {
+		System.out.println("Nome: " + u.getNome()
+						+ "\nCognome: " + u.getCognome()
+						+ "\nNickname: " + u.getNickname()
+						+ "\nEmail: " + u.getPassword()
+						+ "\nPassword: " + u.getPassword());
+	}
+
 
 }

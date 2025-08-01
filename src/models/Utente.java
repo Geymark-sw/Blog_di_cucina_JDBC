@@ -8,19 +8,20 @@ import utils.Ruolo;
 
 public class Utente {
 	
-	private long idUtente;
-	private Ruolo ruolo;
-	private String nome;
-	private String cognome;
-	private String nickname;
-	private String email;
-	private String password;
-	private List<Utente> followers = new ArrayList<Utente>();
-	private List<Utente> seguiti = new ArrayList<Utente>();
-	private List<Post> posts = new ArrayList<Post>();
+	protected long idUtente;
+	protected Ruolo ruolo;
+	protected String nome;
+	protected String cognome;
+	protected String nickname;
+	protected String email;
+	protected String password;
+	protected Boolean status;
+	protected List<Utente> followers = new ArrayList<Utente>();
+	protected List<Utente> seguiti = new ArrayList<Utente>();
+	protected List<Post> posts = new ArrayList<Post>();
 	
 	
-	public Utente(String ruolo, String nome, String cognome, String nickname, String email, String password) {
+	public Utente(String ruolo, String nome, String cognome, String nickname, String email, String password, Boolean status) {
 		super();
 		setRuolo(ruolo);
 		setIdUtente();
@@ -29,13 +30,14 @@ public class Utente {
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
+		this.status = status;
 	}
 	
 	public Utente() {
 		
 	}
 	
-	public Utente(long idUtente, String ruolo, String nome, String cognome, String nickname, String email, String password) {
+	public Utente(long idUtente, String ruolo, String nome, String cognome, String nickname, String email, String password, Boolean status) {
 		super();
 		this.idUtente = idUtente;
 		setRuolo(ruolo);
@@ -44,12 +46,13 @@ public class Utente {
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
+		this.status = status;
 	}
 	
 	
 	
 	public Utente(long idUtente, Ruolo ruolo, String nome, String cognome, String nickname, String email,
-			String password, List<Utente> followers, List<Utente> seguiti, List<Post> posts) {
+			String password, Boolean status, List<Utente> followers, List<Utente> seguiti, List<Post> posts) {
 		super();
 		this.idUtente = idUtente;
 		this.ruolo = ruolo;
@@ -58,6 +61,7 @@ public class Utente {
 		this.nickname = nickname;
 		this.email = email;
 		this.password = password;
+		this.status = status;
 		this.followers = followers;
 		this.seguiti = seguiti;
 		this.posts = posts;
@@ -129,6 +133,14 @@ public class Utente {
 	}
 	
 	
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 
 	public List<Utente> getFollowers() {
 		return followers;
